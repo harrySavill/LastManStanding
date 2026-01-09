@@ -1,71 +1,62 @@
 // src/pages/Home.jsx
 import { Link } from 'react-router-dom'
-import '../styles/landing.css'  // We'll create this next
+import '../styles/landing.css'
 
 function Home() {
   return (
     <>
-      <header className="header">
-        <div className="container">
-          <h1 className="logo">Last Man Standing</h1>
-          <nav className="nav">
-            <Link to="/login">Log In</Link>
-            <Link to="/register" className="btn-primary">Sign Up</Link>
-          </nav>
+      <header className="hero">
+        <nav className="nav">
+          <div className="logo">LastMan</div>
+        </nav>
+
+        <div className="hero-content">
+          <h1>
+            One Loss.<br />
+            <span>You’re Out.</span>
+          </h1>
+          <p>
+            Create and compete in Last Man Standing pools.
+            Pick one winner each week — no repeats.
+            Longest survivor wins.
+          </p>
+
+          <div className="hero-actions">
+            <Link to="/register" className="btn primary">Login / Register</Link>
+            <a href="#how-it-works" className="btn secondary">How It Works</a>
+          </div>
         </div>
       </header>
 
-      <section className="hero">
-        <div className="hero-overlay"></div>
-        <div className="container hero-content">
-          <h2>Be the Last One Standing</h2>
-          <p>The ultimate football survivor pool – pick one winning team each week, no repeats, last player alive wins the pot!</p>
-          <Link to="/register" className="btn-large">Join Now & Play</Link>
-        </div>
-      </section>
+      <section className="how-it-works" id="how-it-works">
+        <h2>How It Works</h2>
 
-      <section className="section" id="how-it-works">
-        <div className="container">
-          <h2 className="section-title">What is Last Man Standing?</h2>
-          <div className="grid">
-            <div className="card">
-              <h3>1. Pick One Team Per Week</h3>
-              <p>Each game week, choose one team you think will win their match (straight win, no spreads).</p>
-            </div>
-            <div className="card">
-              <h3>2. No Repeats Allowed</h3>
-              <p>You can only pick each team once during the entire competition – strategy matters!</p>
-            </div>
-            <div className="card">
-              <h3>3. Survive or Be Eliminated</h3>
-              <p>If your team wins, you advance. If they lose or draw, you're out. Last player standing wins!</p>
-            </div>
+        <div className="steps">
+          <div className="step">
+            <span className="step-number">1</span>
+            <h3>Create or Join a Pool</h3>
+            <p>Play with friends, coworkers, or enter public pools.</p>
+          </div>
+
+          <div className="step">
+            <span className="step-number">2</span>
+            <h3>Pick One Team Weekly</h3>
+            <p>No repeats. Every pick matters.</p>
+          </div>
+
+          <div className="step">
+            <span className="step-number">3</span>
+            <h3>Lose Once, You’re Eliminated</h3>
+            <p>Survive longer than everyone else to win.</p>
           </div>
         </div>
       </section>
 
-      <section className="section alt-bg" id="features">
-        <div className="container">
-          <h2 className="section-title">Why Play With Us?</h2>
-          <ul className="features-list">
-            <li>Easy weekly picks with live fixtures</li>
-            <li>Real-time leaderboards & elimination tracking</li>
-            <li>Private pools for friends or public competitions</li>
-            <li>Automatic result updates from official sources</li>
-            <li>Secure user accounts and pick history</li>
-            <li>Mobile-friendly – pick anytime, anywhere</li>
-          </ul>
-          <div className="cta-center">
-            <Link to="/register" className="btn-large">Create Your Free Account</Link>
-          </div>
-        </div>
+      <section className="cta">
+        <h2>Ready to Test Your Survival Instinct?</h2>
+        <p>Start your first pool in under a minute.</p>
+        <Link to="/register" className="btn primary large">Login / Register</Link>
       </section>
-
-      <footer className="footer">
-        <div className="container">
-          <p>&copy; 2026 Last Man Standing Football. All rights reserved.</p>
-        </div>
-      </footer>
     </>
   )
 }
