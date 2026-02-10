@@ -22,7 +22,8 @@ function Home() {
           </p>
 
           <div className="hero-actions">
-            <Link to="/register" className="btn primary">Login / Register</Link>
+            <Link to="/register" className="btn primary">Register</Link>
+            <Link to="/login" className="btn primary">Login</Link>
             <a href="#how-it-works" className="btn secondary">How It Works</a>
           </div>
         </div>
