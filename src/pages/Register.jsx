@@ -46,6 +46,7 @@ export default function Register() {
     }
 
     setLoading(false)
+    navigate('/login')
   }
 
   return (

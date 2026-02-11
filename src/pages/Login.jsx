@@ -1,8 +1,37 @@
 // src/pages/Login.jsx
-import { Link } from 'react-router-dom'
-import './styles/Login.css'  
+import { Link, useNavigate } from 'react-router-dom'
+import './styles/Login.css'
+import { useState } from 'react'
+import { supabase } from '../lib/supabaseClient'
 
 export default function Login() {
+  const [email, setEmail]         = useState('')
+  const [password, setPassword]   = useState('')
+  const [loading, setLoading]     = useState(false)
+  const [errorMsg, setErrorMsg]   = useState(null)
+
+  const navigate = useNavigate()
+
+  async function handleLogin(e) {
+    e.preventDefault()
+    setLoading(true)
+    setErrorMsg(null)
+
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      setErrorMsg(error.message)
+      setLoading(false)
+      return
+    }
+
+    // Success 
+    navigate('/dashboard')
+  }
+
   return (
     <div className="login-page">
       <div className="login-container">
@@ -10,12 +39,14 @@ export default function Login() {
           <h1>Welcome back</h1>
         </div>
 
-        <form className="login-form">
+        <form className="login-form" onSubmit={handleLogin}>
           <div className="form-group">
             <label htmlFor="email">Email address</label>
             <input
               type="email"
               id="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               placeholder="you@example.com"
               required
             />
@@ -26,14 +57,24 @@ export default function Login() {
             <input
               type="password"
               id="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               placeholder="••••••••"
               required
             />
           </div>
 
-          <button type="submit" className="btn primary large">
-            Log in
+          <button 
+            type="submit" 
+            className="btn primary large"
+            disabled={loading}
+          >
+            {loading ? 'Logging in...' : 'Log in'}
           </button>
+
+          {errorMsg && (
+            <p style={{ color: 'red', marginTop: '1rem' }}>{errorMsg}</p>
+          )}
 
           <div className="forgot-password">
             <Link to="/forgot-password" className="link-accent">
