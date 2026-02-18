@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import './styles/ForgotPassword.css'
-// import { supabase } from '../lib/supabaseClient'  // uncomment later
+import { supabase } from '../lib/supabaseClient'  // uncomment later
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState('')
@@ -9,24 +9,27 @@ export default function ForgotPassword() {
   const [message, setMessage] = useState(null)
   const [errorMsg, setErrorMsg] = useState(null)
 
-  async function handleSubmit(e) {
-    e.preventDefault()
-    setLoading(true)
-    setMessage(null)
-    setErrorMsg(null)
 
-    // Placeholder — replace with real Supabase call later
-    // const { error } = await supabase.auth.resetPasswordForEmail(email, {
-    //   redirectTo: `${window.location.origin}/update-password`
-    // })
 
-    // Simulate for now
-    setTimeout(() => {
-      setLoading(false)
-      setMessage('If an account exists, a reset link has been sent.')
-      // setErrorMsg('Network error — try again') // for testing
-    }, 1200)
+async function handleSubmit(e) {
+  e.preventDefault()
+  setLoading(true)
+  setMessage(null)
+  setErrorMsg(null)
+
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: "http://localhost:5173/update-password",  
+  })
+
+  setLoading(false)
+
+  if (error) {
+    setErrorMsg(error.message)
+    return
   }
+
+  setMessage('If an account exists, a reset link has been sent. Check your email.')
+}
 
   return (
     <div className="forgot-password-page">
