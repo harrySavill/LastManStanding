@@ -14,6 +14,24 @@ export default function Register() {
 
   const navigate = useNavigate()
 
+  const signInWithGoogle = async () => {
+  setLoading(true);
+  setErrorMsg(null);
+
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${window.location.origin}/dashboard`,  // same as email login
+    },
+  });
+
+  if (error) {
+    setErrorMsg(error.message);
+    setLoading(false);
+  }
+  // Supabase redirects automatically → no navigate needed here
+};
+
   async function handleSignUp(e) {
     e.preventDefault()
     setLoading(true)
@@ -114,7 +132,12 @@ export default function Register() {
 
           {errorMsg && <p style={{ color: 'red', marginTop: '1rem' }}>{errorMsg}</p>}
         </form>
-
+        <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+          <button type="button" onClick={signInWithGoogle} className="btn-google" disabled={loading}>
+            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google"/>
+            Sign up with Google
+          </button>
+        </div>
         <div className="register-footer">
           <p>
             Already have an account?{' '}

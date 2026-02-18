@@ -13,7 +13,6 @@ export default function UpdatePassword() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    // Optional: Listen for recovery event to confirm state
     const { data: listener } = supabase.auth.onAuthStateChange((event) => {
       if (event === 'PASSWORD_RECOVERY') {
         console.log('User in password recovery mode')
@@ -51,7 +50,7 @@ export default function UpdatePassword() {
   }
 
   return (
-    <div className="update-password-page">  {/* mirror login classes */}
+    <div className="update-password-page">
       <div className="update-password-container">
         <div className="update-password-header">
           <h1>Set new password</h1>

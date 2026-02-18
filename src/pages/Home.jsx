@@ -56,7 +56,7 @@ function Home() {
       <section className="cta">
         <h2>Ready to Test Your Survival Instinct?</h2>
         <p>Start your first pool in under a minute.</p>
-        <Link to="/register" className="btn primary large">Login / Register</Link>
+        <Link to="/register" className="btn primary large">Register</Link>
       </section>
     </>
   )

@@ -61,4 +61,36 @@ body {
   padding: 1.1rem 2rem;
 }
 
+/* Google Sign-In button */
+.btn-google {
+  width: 100%;
+  padding: 0.9rem 1.1rem;
+  background: white;
+  color: #000;
+  font-weight: 500;
+  font-size: 1rem;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+
+.btn-google:hover:not(:disabled) {
+  background: #f8f9fa;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.btn-google:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-google img {
+  height: 18px;
+  margin-right: 12px;
+}
+
 

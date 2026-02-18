@@ -12,6 +12,24 @@ export default function Login() {
 
   const navigate = useNavigate()
 
+  const signInWithGoogle = async () => {
+  setLoading(true);
+  setErrorMsg(null);
+
+  const { error } = await supabase.auth.signInWithOAuth({
+    provider: 'google',
+    options: {
+      redirectTo: `${window.location.origin}/dashboard`,  // same as email login
+    },
+  });
+
+  if (error) {
+    setErrorMsg(error.message);
+    setLoading(false);
+  }
+  // Supabase redirects automatically → no navigate needed here
+};
+
   async function handleLogin(e) {
     e.preventDefault()
     setLoading(true)
@@ -82,7 +100,12 @@ export default function Login() {
             </Link>
           </div>
         </form>
-
+        <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
+          <button type="button" onClick={signInWithGoogle} className="btn-google" disabled={loading}>
+            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google"/>
+            Sign in with Google
+          </button>
+        </div>  
         <div className="login-footer">
           <p>
             Don't have an account?{' '}
