@@ -54,7 +54,6 @@ export default function Register() {
       <div className="register-container">
         <div className="register-header">
           <h1>Create your account</h1>
-          <p>Join the ultimate football survivor pool – free to play</p>
         </div>
 
         <form className="register-form" onSubmit={handleSignUp}>

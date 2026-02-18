@@ -77,7 +77,7 @@ export default function Login() {
           )}
 
           <div className="forgot-password">
-            <Link to="/forgot-password" className="link-accent">
+            <Link to="/forgotPassword" className="link-accent">
               Forgot password?
             </Link>
           </div>

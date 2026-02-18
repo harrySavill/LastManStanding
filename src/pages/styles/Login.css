@@ -32,12 +32,8 @@
   margin-bottom: 0.75rem;
 }
 
-.login-header p {
-  color: var(--text-muted);
-  font-size: 1.05rem;
-}
 
-/* Form layout – same spacing and structure */
+/* Form layout */
 .login-form {
   display: flex;
   flex-direction: column;
