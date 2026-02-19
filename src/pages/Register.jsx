@@ -134,7 +134,7 @@ export default function Register() {
         </form>
         <div style={{ marginTop: '1.5rem', textAlign: 'center' }}>
           <button type="button" onClick={signInWithGoogle} className="btn-google" disabled={loading}>
-            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google"/>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google"/>
             Sign up with Google
           </button>
         </div>
