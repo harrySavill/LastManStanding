@@ -1,0 +1,13 @@
+.profile-main-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.1em;
+    margin-top: 10rem;
+}
+
+.profile-main-content p{
+    font-weight: bold;
+    font-size: larger;
+}

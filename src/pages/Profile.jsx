@@ -1,5 +1,6 @@
 import { Navigate, useNavigate } from "react-router-dom"
 import Header from './Header'
+import './styles/Profile.css'
 
 export default function Profile(){
 
@@ -8,8 +9,10 @@ export default function Profile(){
     return(
         <div>
             <Header activeLink = 'profile' />
-            <p>page does not yet exist</p>
-            <button className="btn primary large" onClick={()=> navigate('/dashboard')}>back home</button>
+            <div className="profile-main-content">
+                <p>page does not yet exist</p>
+                <button className="btn primary large" onClick={()=> navigate('/dashboard')}>back home</button>
+            </div>
         </div>
     )
 }
