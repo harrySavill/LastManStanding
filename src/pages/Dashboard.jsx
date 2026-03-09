@@ -2,46 +2,78 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
-import './styles/Dashboard.css'
+import './styles/Dashboard.css';
 
 export default function Dashboard() {
   const [username, setUsername] = useState(null);
+  const [pools, setPools] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [pools, setPools] = useState([]); // ← replace with real query later
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadData = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        navigate('/login');
-        return;
-      }
-
-      // Get username
       try {
-        const { data, error } = await supabase
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!session?.user) {
+          navigate('/login');
+          return;
+        }
+
+        const userId = session.user.id;
+
+        // 1. Get username
+        const { data: profile, error: profileErr } = await supabase
           .from('profiles')
           .select('username')
-          .eq('id', session.user.id)
+          .eq('id', userId)
           .maybeSingle();
 
-        if (error) throw error;
-        setUsername(data?.username ?? null);
+        if (profileErr) throw profileErr;
+        setUsername(profile?.username ?? null);
+
+        // 2. Get pools user is part of
+        const { data: poolMemberships, error: membershipErr } = await supabase
+          .from('profile_pools')
+          .select(`
+            pool_id,
+            pools (
+              id,
+              name,
+              is_public,
+              ruleset,
+              created_by,
+              created_at
+            )
+          `)
+          .eq('profile_id', userId)
+          .order('joined_at', { ascending: false });
+
+        if (membershipErr) throw membershipErr;
+
+        // Transform into usable pool list
+        const userPools = poolMemberships.map((m) => {
+          const p = m.pools;
+          return {
+            id: p.id,
+            name: p.name,
+            isPublic: p.is_public,
+            ruleset: p.ruleset,
+            isOwner: p.created_by === userId,
+            createdAt: p.created_at,
+            // Placeholder – replace with real logic later
+            status: new Date(p.created_at) > new Date('2026-03-01') ? 'Active' : 'Ended',
+            entries: 0, // TODO: count from profile_pools later
+          };
+        });
+
+        setPools(userPools);
       } catch (err) {
-        setError(err.message || 'Failed to load profile');
+        setError(err.message || 'Failed to load dashboard');
       } finally {
         setLoading(false);
       }
-
-      // TODO: Replace with real query once table exists
-      // Example placeholder data
-      setPools([
-        { id: 1, name: 'Friends NFL 2026', status: 'Active', entries: 14 },
-        { id: 2, name: 'Work Survivor League', status: 'Week 2', entries: 9 },
-      ]);
     };
 
     loadData();
@@ -65,8 +97,7 @@ export default function Dashboard() {
     <div className="dashboard-page">
       <header className="dashboard-header">
         <div className="header-content">
-          <h1 className="logo">Survivor Pool</h1>
-          
+          <h1 className="logo">LastMan</h1>
           <nav className="header-nav">
             <Link to="/pools" className="nav-link active">Pools</Link>
             <Link to="/profile" className="nav-link profile-icon">Profile</Link>
@@ -84,7 +115,12 @@ export default function Dashboard() {
             <p>Your active pools</p>
           </div>
           <div className="action-buttons">
-            <button className="btn primary large">Create Pool</button>
+            <button 
+              className="btn primary large"
+              onClick={() => navigate('/create-pool')}
+            >
+              Create Pool
+            </button>
             <button className="btn primary large">Join Pool</button>
           </div>
         </div>
@@ -100,12 +136,12 @@ export default function Dashboard() {
               <div 
                 key={pool.id} 
                 className="pool-card"
-                onClick={() => navigate(`/pool/${pool.id}`)}
+                onClick={() => navigate(`/pools/${pool.id}`)}
               >
                 <h3>{pool.name}</h3>
                 <div className="pool-meta">
                   <span className="status">{pool.status}</span>
-                  <span>{pool.entries} entries</span>
+                  <span>{pool.isOwner ? 'Owner' : 'Member'}</span>
                 </div>
               </div>
             ))}
