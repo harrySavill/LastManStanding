@@ -20,4 +20,4 @@ Built with **React + Vite + Supabase** (auth, realtime DB, PostgreSQL).
 - **Styling**: CSS variables + custom classes (no Tailwind/UI libs yet)
 - **Deployment-ready**: Environment variables for Supabase URL & anon key
 
-## Project Structure
+
