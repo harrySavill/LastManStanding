@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
-import Header from './Header';
+import Header from './Header'; // assuming this is your reusable header
 import './styles/PoolDetail.css';
 
 export default function PoolDetail() {
@@ -10,13 +10,18 @@ export default function PoolDetail() {
 
   const [pool, setPool] = useState(null);
   const [members, setMembers] = useState([]);
+  const [isOwner, setIsOwner] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchPool = async () => {
       try {
-        // Fetch pool
+        // Get current user
+        const { data: { user }, error: userErr } = await supabase.auth.getUser();
+        if (userErr || !user) throw new Error('Not authenticated');
+
+        // Fetch pool data
         const { data: poolData, error: poolErr } = await supabase
           .from('pools')
           .select('*')
@@ -27,8 +32,9 @@ export default function PoolDetail() {
         if (!poolData) throw new Error('Pool not found');
 
         setPool(poolData);
+        setIsOwner(poolData.created_by === user.id);
 
-        
+        // Fetch members
         const { data: membersData, error: membersErr } = await supabase
           .from('profile_pools')
           .select(`
@@ -61,8 +67,7 @@ export default function PoolDetail() {
 
   return (
     <div className="pool-detail-page">
-      
-      <Header activeLink='pools' />
+      <Header activeLink="pools" />
 
       <div className="pool-detail-container">
         <div className="pool-card">
@@ -85,6 +90,16 @@ export default function PoolDetail() {
               <span className="label">Created</span>
               <span className="value">{new Date(pool.created_at).toLocaleDateString()}</span>
             </div>
+            {isOwner && (
+              <div className='info-item'>
+              <button
+                className="btn primary large"
+                onClick={() => navigate(`/manage-pool/${pool.id}`)}
+              >
+                Manage Pool
+              </button>
+              </div>
+            )}
           </div>
 
           <div className="members-section">
@@ -107,8 +122,8 @@ export default function PoolDetail() {
           </div>
 
           <div className="actions">
-            <Link to="/pools" className="btn secondary">
-              Back to Pools
+            <Link to="/dashboard" className="btn secondary">
+              Back to Dashboard
             </Link>
           </div>
         </div>
