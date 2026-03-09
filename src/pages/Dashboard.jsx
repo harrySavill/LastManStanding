@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
+import Header from './Header';
 import './styles/Dashboard.css';
 
 export default function Dashboard() {
@@ -95,18 +96,8 @@ export default function Dashboard() {
 
   return (
     <div className="dashboard-page">
-      <header className="dashboard-header">
-        <div className="header-content">
-          <h1 className="logo">LastMan</h1>
-          <nav className="header-nav">
-            <Link to="/pools" className="nav-link active">Pools</Link>
-            <Link to="/profile" className="nav-link profile-icon">Profile</Link>
-            <button onClick={handleSignOut} className="nav-link signout-btn">
-              Sign Out
-            </button>
-          </nav>
-        </div>
-      </header>
+      
+      <Header activeLink='pools' />
 
       <main className="dashboard-main">
         <div className="welcome-bar">

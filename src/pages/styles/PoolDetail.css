@@ -1,0 +1,147 @@
+.pool-detail-page {
+  min-height: 100vh;
+  background: var(--bg-dark);
+  color: var(--text-primary);
+}
+
+.pool-detail-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.pool-card {
+  width: 100%;
+  max-width: 680px;
+  background: var(--bg-secondary);
+  border-radius: 16px;
+  border: 1px solid var(--border-color);
+  padding: 2.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
+.pool-title {
+  font-size: 2.1rem;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.pool-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.value {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.value.code {
+  font-family: monospace;
+  letter-spacing: 1px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.members-section {
+  margin: 2.5rem 0;
+}
+
+.members-section h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1.2rem;
+}
+
+.members-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.member-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  background: var(--bg-dark);
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.member-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.member-fullname {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.owner-badge {
+  background: var(--accent);
+  color: #000;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  margin-left: auto;
+}
+
+.actions {
+  text-align: center;
+  margin-top: 2.5rem;
+}
+
+.btn.secondary {
+  padding: 0.9rem 1.8rem;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn.secondary:hover {
+  background: rgba(44, 255, 143, 0.1);
+}
+
+.loading, .error {
+  text-align: center;
+  padding: 4rem;
+  font-size: 1.2rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .pool-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .pool-title {
+    font-size: 1.8rem;
+  }
+
+  .pool-info-grid {
+    grid-template-columns: 1fr;
+  }
+}

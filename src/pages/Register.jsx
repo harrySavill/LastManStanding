@@ -21,7 +21,7 @@ export default function Register() {
   const { error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${window.location.origin}/dashboard`,  // same as email login
+      redirectTo: `${window.location.origin}/dashboard`,  
     },
   });
 
@@ -29,7 +29,6 @@ export default function Register() {
     setErrorMsg(error.message);
     setLoading(false);
   }
-  // Supabase redirects automatically → no navigate needed here
 };
 
   async function handleSignUp(e) {
@@ -53,7 +52,7 @@ export default function Register() {
       email,
       password,
       options: {
-        data: { username }           // ← sent to raw_user_meta_data
+        data: { username }           
       }
     })
 
@@ -65,7 +64,53 @@ export default function Register() {
 
     setLoading(false)
     navigate('/login')
+  }async function handleSignUp(e) {
+  e.preventDefault()
+  setLoading(true)
+  setErrorMsg(null)
+
+  if (password !== confirmedPassword) {
+    setErrorMsg("Passwords don't match")
+    setLoading(false)
+    return
   }
+
+  if (username.length < 3) {
+    setErrorMsg("Username must be at least 3 characters")
+    setLoading(false)
+    return
+  }
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { username }
+    }
+  })
+
+  if (error) {
+    setErrorMsg(error.message)
+    setLoading(false)
+    return
+  }
+
+
+  if (data.user && !data.session) {
+    setErrorMsg('This email is already registered. Please log in.')
+    setLoading(false)
+    return
+  }
+
+  
+  setLoading(false)
+
+  if (data.session) {
+    navigate('/dashboard')
+  } else {
+    setErrorMsg('Check your email to confirm your account')
+  }
+}
 
   return (
     <div className="register-page">

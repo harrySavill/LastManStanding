@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { supabase } from "../lib/supabaseClient";
+import Header from "./Header";
 import "./styles/CreatePool.css";
 
 export default function CreatePool() {
@@ -60,15 +61,8 @@ export default function CreatePool() {
 
   return (
     <div className="create-pool-page">
-      <header onClick={() => navigate("/dashboard")} className="dashboard-header clickable">
-        <div className="header-content">
-          <h1 className="logo">LastMan</h1>
-          <nav className="header-nav">
-            <Link to="/pools" className="nav-link">Pools</Link>
-            <Link to="/profile" className="nav-link ">Profile</Link>
-          </nav>
-        </div>
-      </header>
+    
+      <Header activeLink='pools' />
 
       <div className="create-pool-container">
         <div className="create-pool-card">

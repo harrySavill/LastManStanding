@@ -7,6 +7,8 @@ import Dashboard from './pages/Dashboard.jsx'
 import ForgotPassword from './pages/ForgotPassword.jsx'
 import UpdatePassword from './pages/UpdatePassword.jsx'
 import CreatePool from './pages/CreatePool.jsx'
+import PoolDetail from './pages/PoolDetail.jsx'
+import Profile from './pages/Profile.jsx'
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/update-password" element={<UpdatePassword />} />
       <Route path="/create-pool" element={<CreatePool />} />
+      <Route path="/pools/:poolId" element={<PoolDetail />} />
+      <Route path="/profile" element={<Profile />} />
     </Routes>
   )
 }
