@@ -62,7 +62,7 @@ export default function CreatePool() {
   return (
     <div className="create-pool-page">
     
-      <Header activeLink='pools' />
+      <Header />
 
       <div className="create-pool-container">
         <div className="create-pool-card">

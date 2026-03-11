@@ -10,6 +10,7 @@ import CreatePool from './pages/CreatePool.jsx'
 import PoolDetail from './pages/PoolDetail.jsx'
 import Profile from './pages/Profile.jsx'
 import ManagePool from './pages/ManagePool.jsx'
+import JoinPool from './pages/JoinPool.jsx'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/update-password" element={<UpdatePassword />} />
       <Route path="/create-pool" element={<CreatePool />} />
+      <Route path="/join-pool" element={<JoinPool />} />
       <Route path="/pools/:poolId" element={<PoolDetail />} />
       <Route path="/manage-pool/:poolId" element={<ManagePool />} />
       <Route path="/profile" element={<Profile />} />

@@ -112,7 +112,12 @@ export default function Dashboard() {
             >
               Create Pool
             </button>
-            <button className="btn primary large">Join Pool</button>
+            <button 
+            className="btn primary large"
+            onClick={() => navigate('/join-pool')}
+            >
+              Join Pool
+            </button>
           </div>
         </div>
 

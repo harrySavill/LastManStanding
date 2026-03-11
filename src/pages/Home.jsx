@@ -7,7 +7,7 @@ function Home() {
     <>
       <header className="hero">
         <nav className="nav">
-          <div className="logo">LastMan</div>
+          <div className="logo">LastManStanding</div>
         </nav>
 
         <div className="hero-content">
