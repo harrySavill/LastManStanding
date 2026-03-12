@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../lib/supabaseClient';
-import Header from './Header'; // assuming this is your reusable header
+import Header from './Header';
 import './styles/PoolDetail.css';
 
 export default function PoolDetail() {
