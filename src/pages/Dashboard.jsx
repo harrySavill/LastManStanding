@@ -65,7 +65,7 @@ export default function Dashboard() {
             createdAt: p.created_at,
             // Placeholder – replace with real logic later
             status: new Date(p.created_at) > new Date('2026-03-01') ? 'Active' : 'Ended',
-            entries: 0, // TODO: count from profile_pools later
+            entries: 0, 
           };
         });
 
